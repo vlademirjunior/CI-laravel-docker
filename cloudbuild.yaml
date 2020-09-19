@@ -7,3 +7,7 @@ steps: # Significa, quais passos vamos executar
 - id: "Rodando docker ps" # Nome da etapa
   name: 'gcr.io/cloud-builders/docker'
   args: ['ps']
+
+- id: "Rodando composer" # Nome da etapa
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'composer', 'install']
