@@ -11,3 +11,11 @@ steps: # Significa, quais passos vamos executar
 - id: "Rodando composer" # Nome da etapa
   name: 'gcr.io/cloud-builders/docker'
   args: ['exec', '-t', 'app', 'composer', 'install']
+
+- id: "Copiando .env" # Nome da etapa
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'cp', '.env.example', '.env']
+
+- id: "Rodando key:generate" # Nome da etapa
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec', '-t', 'app', 'php', '/var/www/artisan', 'key:generate']
