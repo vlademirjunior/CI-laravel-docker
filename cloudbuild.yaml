@@ -4,9 +4,13 @@ steps: # Significa, quais passos vamos executar
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.25.5' # Informa a imagem que o docker tem para ele rodar o docker-compose, nesse caso escolhi a imagem docker-compose
   args: ['-f', 'docker-compose.cloudbuild.yaml', 'up', '-d'] # argumento que quero que ele faça no docker-compose
 
+- id: "Chown in /var/www"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['exec','-u','root','-t','app','chown','-R','www-data:www-data','/var/www']
+
 - id: "Rodando docker ps" # Nome da etapa
   name: 'gcr.io/cloud-builders/docker'
-  args: ['ps']
+  args: ['ps'] # esse docker ps é simplesmente para ter mais informações no processo
 
 - id: "Rodando composer" # Nome da etapa
   name: 'gcr.io/cloud-builders/docker'
